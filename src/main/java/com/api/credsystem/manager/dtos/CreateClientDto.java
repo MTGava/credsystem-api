@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,8 +19,8 @@ public class CreateClientDto {
     @Size(max = 50)
     private String nome;
 
-//    @NotBlank
-//    private Date dtNascimento;
+    @NotNull
+    private Date dtNascimento;
 
     @NotBlank
     @Size(max = 150)

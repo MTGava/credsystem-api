@@ -4,6 +4,7 @@ import com.api.credsystem.manager.dtos.CreateClientDto;
 import com.api.credsystem.manager.dtos.UpdateClientDto;
 import com.api.credsystem.manager.models.ClientModel;
 import com.api.credsystem.manager.services.ClientService;
+import com.api.credsystem.manager.utils.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,9 +39,9 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<ClientModel> save(@RequestBody @Valid CreateClientDto createClientDto) {
         var client = new ClientModel();
-        System.out.println(createClientDto);
         BeanUtils.copyProperties(createClientDto, client);
-        client.setDtRegistro(LocalDateTime.now(ZoneId.of("UTC")));
+        //client.setDtNascimento(Utils.formatDate(createClientDto.getDtNascimento()));
+        client.setDtRegistro(LocalDateTime.now(ZoneId.of("GMT-3")));
         return new ResponseEntity<>(clientService.save(client), HttpStatus.CREATED);
     }
 

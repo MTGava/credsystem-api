@@ -30,8 +30,8 @@ public class ClientModel implements Serializable {
     @Column(nullable = false, length = 50)
     private String nome;
 
-//    @Column(nullable = false)
-//    private Date dtNascimento;
+    @Column(nullable = false)
+    private Date dtNascimento;
 
     @Column(nullable = false, length = 150)
     private String endereco;
