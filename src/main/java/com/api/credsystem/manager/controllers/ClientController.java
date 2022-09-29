@@ -1,47 +1,57 @@
 package com.api.credsystem.manager.controllers;
 
-import com.api.credsystem.manager.models.Client;
+import com.api.credsystem.manager.dtos.CreateClientDto;
+import com.api.credsystem.manager.dtos.UpdateClientDto;
+import com.api.credsystem.manager.models.ClientModel;
+import com.api.credsystem.manager.services.ClientService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
 public class ClientController {
 
+    @Autowired
+    private ClientService clientService;
+
     @GetMapping
-    public ResponseEntity<Client> findAll() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<List<ClientModel>> findAll() {
+        return new ResponseEntity<>(clientService.findAll(), HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> findById(@PathVariable UUID id) {
-        return new ResponseEntity<>();
+    public ResponseEntity<ClientModel> findById(@PathVariable Integer id) {
+        return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Client> save(@RequestBody Client client) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<ClientModel> save(@RequestBody @Valid CreateClientDto createClientDto) {
+        var client = new ClientModel();
+        System.out.println(createClientDto);
+        BeanUtils.copyProperties(createClientDto, client);
+        client.setDtRegistro(LocalDateTime.now(ZoneId.of("UTC")));
+        return new ResponseEntity<>(clientService.save(client), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        clientService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> update(@PathVariable UUID id, @RequestBody Client client) {
-        return new ResponseEntity<>();
+    public ResponseEntity<ClientModel> update(@PathVariable Integer id, @RequestBody @Valid UpdateClientDto updateClientDto) {
+        ClientModel clientModel = clientService.findById(id);
+        BeanUtils.copyProperties(updateClientDto, clientModel);
+        return new ResponseEntity<>(clientService.update(id, clientModel), HttpStatus.OK);
     }
-
 }
