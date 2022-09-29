@@ -25,8 +25,8 @@ public class CardModel implements Serializable {
     @Column(nullable = false, length = 50)
     private String nome;
 
-//    @Column(nullable = false)
-//    private Date dtValidade;
+    @Column(nullable = false)
+    private Date dtValidade;
 
     @Column(nullable = false, length = 3)
     private String cvv;
