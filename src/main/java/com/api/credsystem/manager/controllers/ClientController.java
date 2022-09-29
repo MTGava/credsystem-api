@@ -12,10 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -55,6 +53,6 @@ public class ClientController {
     public ResponseEntity<ClientModel> update(@PathVariable Integer id, @RequestBody @Valid UpdateClientDto updateClientDto) {
         ClientModel clientModel = clientService.findById(id);
         BeanUtils.copyProperties(updateClientDto, clientModel);
-        return new ResponseEntity<>(clientService.update(id, clientModel), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.save(clientModel), HttpStatus.OK);
     }
 }

@@ -18,4 +18,14 @@ public class Utils {
             throw new RuntimeException("Não foi possível formatar a data para o padrão da aplicação: " + e);
         }
     }
+
+    public static String generateRandomNumber(int length) {
+        String randomValue;
+        StringBuilder number = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            randomValue = String.valueOf(Math.random() * 10);
+            number.append(randomValue.charAt(0));
+        }
+        return String.valueOf(number);
+    }
 }

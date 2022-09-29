@@ -34,13 +34,4 @@ public class ClientService {
             throw new NotFoundException(id);
         }
     }
-
-    public ClientModel update(Integer id, ClientModel client) {
-        try {
-            ClientModel clientUpdate = findById(id);
-            return clientRepository.save(client);
-        } catch(EmptyResultDataAccessException e) {
-            throw new NotFoundException(id);
-        }
-    }
 }
