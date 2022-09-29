@@ -1,6 +1,5 @@
 package com.api.credsystem.manager.controllers;
 
-import com.api.credsystem.manager.controllers.exceptions.StatusNotAllowedException;
 import com.api.credsystem.manager.dtos.CreateCardDto;
 import com.api.credsystem.manager.models.CardModel;
 import com.api.credsystem.manager.services.CardService;
@@ -11,11 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @RestController
