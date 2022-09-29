@@ -45,7 +45,4 @@ public class ClientModel implements Serializable {
     @Column(nullable = false)
     private LocalDateTime dtRegistro;
 
-    public void setDtRegistro(LocalDateTime dtRegistro) {
-        this.dtRegistro = dtRegistro;
-    }
 }

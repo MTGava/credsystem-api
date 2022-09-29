@@ -33,7 +33,6 @@ public class CardService {
     }
 
     public CardModel generateCard(CardModel card, Integer id) {
-        System.out.println(id);
         var client = clientService.findById(id);
 //        Date dtValidade = new Date("2023-12-31");
         card.setNumero(Utils.generateRandomNumber(16));

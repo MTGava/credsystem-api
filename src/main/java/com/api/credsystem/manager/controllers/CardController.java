@@ -1,12 +1,12 @@
 package com.api.credsystem.manager.controllers;
 
+import com.api.credsystem.manager.controllers.exceptions.StatusNotAllowedException;
 import com.api.credsystem.manager.dtos.CreateCardDto;
 import com.api.credsystem.manager.models.CardModel;
 import com.api.credsystem.manager.services.CardService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,15 +33,14 @@ public class CardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
         CardModel card = cardService.findById(id);
         if (card.getAtivo()) {
             card.setAtivo(false);
             cardService.save(card);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.badRequest().body("Status não permitido para o cartão!");
     }
 
     @PostMapping

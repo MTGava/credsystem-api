@@ -47,10 +47,6 @@ public class CardModel implements Serializable {
     private LocalDateTime dtRegistro;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "usuario_id")
     private ClientModel usuario;
-
-    public void setDtRegistro(LocalDateTime dtRegistro) {
-        this.dtRegistro = dtRegistro;
-    }
 }
