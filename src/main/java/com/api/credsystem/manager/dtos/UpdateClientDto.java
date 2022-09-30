@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,8 +15,7 @@ public class UpdateClientDto {
     @Size(max = 50)
     private String nome;
 
-//    @NotBlank
-//    private Date dtNascimento;
+    private Date dtNascimento;
 
     @Size(max = 150)
     private String endereco;

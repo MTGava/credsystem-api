@@ -1,5 +1,6 @@
 package com.api.credsystem.manager.services;
 
+import com.api.credsystem.manager.controllers.exceptions.CardIsBlockedException;
 import com.api.credsystem.manager.models.CardModel;
 import com.api.credsystem.manager.models.TransactionModel;
 import com.api.credsystem.manager.repositories.TransactionRepository;
@@ -24,11 +25,15 @@ public class TransactionService {
              throw new PasswordInvalidException(id);
         }
 
-        transaction.setSenha(null);
+        if(!card.getAtivo()) {
+            throw new CardIsBlockedException();
+        }
 
         if(transaction.getValor() > card.getSaldo()) {
             throw new NoBalanceException(card.getSaldo());
         }
+
+        transaction.setSenha(null);
 
         decrementBalance(transaction.getValor(), card);
         transaction.setCartao(card);
