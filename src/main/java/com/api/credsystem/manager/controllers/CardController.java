@@ -1,5 +1,6 @@
 package com.api.credsystem.manager.controllers;
 
+import com.api.credsystem.manager.controllers.exceptions.StatusNotAllowedException;
 import com.api.credsystem.manager.dtos.CreateCardDto;
 import com.api.credsystem.manager.models.CardModel;
 import com.api.credsystem.manager.services.CardService;
@@ -39,7 +40,7 @@ public class CardController {
             cardService.save(card);
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.badRequest().body("Status não permitido para o cartão!");
+        throw new StatusNotAllowedException();
     }
 
     @PostMapping
