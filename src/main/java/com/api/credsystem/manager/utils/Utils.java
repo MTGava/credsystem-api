@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Getter
 @Setter
@@ -13,6 +14,7 @@ public class Utils {
     public static Date formatDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
+            sdf.setTimeZone(TimeZone.getTimeZone("America/São_Paulo"));
             return sdf.parse(date);
         } catch (ParseException e) {
             throw new RuntimeException("Não foi possível formatar a data para o padrão da aplicação: " + e);
