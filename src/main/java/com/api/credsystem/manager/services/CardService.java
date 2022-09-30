@@ -60,7 +60,6 @@ public class CardService {
         } else {
             Float setup;
             setup =  Math.round(salary / maxValue * 30F) / 100F;
-            System.out.println(setup);
             limit = salary * setup;
         }
 
